@@ -1,5 +1,6 @@
 package com.programadornovato.androidmysql
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -42,5 +43,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
         queue.add(resultadoPost)
+    }
+    fun cickVer(view: View){
+        var txtId=findViewById<EditText>(R.id.txtId)
+        var intent= Intent(this,MainActivity2::class.java)
+        intent.putExtra("id",txtId.text.toString())
+        startActivity(intent)
     }
 }
