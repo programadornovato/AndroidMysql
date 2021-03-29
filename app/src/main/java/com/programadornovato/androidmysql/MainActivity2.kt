@@ -68,4 +68,27 @@ class MainActivity2 : AppCompatActivity() {
         }
         queue.add(resultadoPost)
     }
+    fun clickEditar(view: View){
+        val url="http://192.168.8.100/android_mysql/editar.php"
+        val queue=Volley.newRequestQueue(this)
+        val resultadoPost = object : StringRequest(Request.Method.POST,url,
+        Response.Listener { response ->
+            Toast.makeText(this,"El usuario ha sido editado de forma exitosa",Toast.LENGTH_LONG).show()
+        },
+            Response.ErrorListener { error ->
+                Toast.makeText(this,"Error al editar el usuario $error",Toast.LENGTH_LONG).show()
+            }
+            ){
+            override fun getParams(): MutableMap<String, String> {
+                val parametros=HashMap<String,String>()
+                parametros.put("id",id!!)
+                parametros.put("nombre",txtNombre?.text.toString())
+                parametros.put("telefono",txtTelefono?.text.toString())
+                parametros.put("email",txtEmail?.text.toString())
+                parametros.put("pass",txtPass?.text.toString())
+                return parametros
+            }
+        }
+        queue.add(resultadoPost)
+    }
 }
