@@ -19,31 +19,6 @@
         app:layout_constraintTop_toBottomOf="@+id/tbUsuarios" />
 
     <EditText
-        android:id="@+id/txtId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="52dp"
-        android:ems="10"
-        android:hint="ID"
-        android:inputType="number"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnInsertar" />
-
-    <Button
-        android:id="@+id/btnVer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
-        android:layout_marginTop="52dp"
-        android:onClick="cickVer"
-        android:text="Ver"
-        app:layout_constraintStart_toEndOf="@+id/txtId"
-        app:layout_constraintTop_toBottomOf="@+id/btnInsertar" />
-
-    <EditText
         android:id="@+id/txtTelefono"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -73,11 +48,12 @@
         android:id="@+id/btnInsertar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:onClick="clickBtnInsertar"
         android:text="Guardar"
+        app:backgroundTint="@color/teal_700"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtPass" />
 
@@ -118,5 +94,31 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </TableLayout>
+
+    <Button
+        android:id="@+id/btnGuardaEditar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginRight="48dp"
+        android:onClick="clickGuardaEditar"
+        android:text="Editar"
+        app:backgroundTint="@android:color/holo_orange_light"
+        app:layout_constraintEnd_toStartOf="@+id/btnInsertar"
+        app:layout_constraintTop_toBottomOf="@+id/txtPass" />
+
+    <Button
+        android:id="@+id/btnReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="48dp"
+        android:onClick="clickReset"
+        android:text="Reset"
+        app:backgroundTint="@android:color/darker_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPass" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
