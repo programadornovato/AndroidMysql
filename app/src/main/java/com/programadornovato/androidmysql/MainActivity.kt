@@ -11,8 +11,10 @@ import android.widget.TextView
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import org.json.JSONException
 
 class MainActivity : AppCompatActivity() {
     var txtNombre:EditText?=null
@@ -29,18 +31,34 @@ class MainActivity : AppCompatActivity() {
         txtPass=findViewById(R.id.txtPass)
         tbUsuarios=findViewById(R.id.tbUsuarios)
         tbUsuarios?.removeAllViews()
-        for (i in 0 until 5){
-            val registro=LayoutInflater.from(this).inflate(R.layout.table_row_np,null,false)
-            val colNombre=registro.findViewById<View>(R.id.colNombre) as TextView
-            val colEmail=registro.findViewById<View>(R.id.colEmail) as TextView
-            val colEditar=registro.findViewById<View>(R.id.colEditar)
-            val colBorrar=registro.findViewById<View>(R.id.colBorrar)
-            colNombre.text="Nombre $i"
-            colEmail.text="Email $i"
-            colEditar.id=i
-            colBorrar.id=i
-            tbUsuarios?.addView(registro)
-        }
+        var queue=Volley.newRequestQueue(this)
+        var url="http://192.168.8.100/android_mysql/registros.php"
+
+        var jsonObjectRequest=JsonObjectRequest(Request.Method.GET,url,null,
+        Response.Listener { response ->
+            try {
+                var jsonArray=response.getJSONArray("data")
+                for(i in 0 until jsonArray.length() ){
+                    var jsonObject=jsonArray.getJSONObject(i)
+                    val registro=LayoutInflater.from(this).inflate(R.layout.table_row_np,null,false)
+                    val colNombre=registro.findViewById<View>(R.id.colNombre) as TextView
+                    val colEmail=registro.findViewById<View>(R.id.colEmail) as TextView
+                    val colEditar=registro.findViewById<View>(R.id.colEditar)
+                    val colBorrar=registro.findViewById<View>(R.id.colBorrar)
+                    colNombre.text=jsonObject.getString("nombre")
+                    colEmail.text=jsonObject.getString("email")
+                    colEditar.id=jsonObject.getString("id").toInt()
+                    colBorrar.id=jsonObject.getString("id").toInt()
+                    tbUsuarios?.addView(registro)
+                }
+            }catch (e: JSONException){
+                e.printStackTrace()
+            }
+        },Response.ErrorListener { error ->
+
+            }
+            )
+        queue.add(jsonObjectRequest)
     }
     fun clickTablaEditar(view: View){
         Toast.makeText(this,view.id.toString(),Toast.LENGTH_LONG).show()
